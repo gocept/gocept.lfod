@@ -31,10 +31,6 @@ describe('Lfod api methods callback', function() {
         mylfod.get_fetchers(callback);
         expect(callback).toHaveBeenCalled();
     });
-    it('fetch method calls callback', function() {
-        mylfod.fetch('', '', '', callback);
-        expect(callback).toHaveBeenCalled();
-    });
 });
 
 describe('Lfod can list fetchers', function() {
@@ -105,4 +101,10 @@ describe('Lfod can handle guests', function() {
     it('guests score is reduced by number of guests', function() {
         expect(set_score_mock).toHaveBeenCalledWith('guests', -5);
     });
+    it('number of guests can be given as string', function() {
+        mylfod.fetch('nilo', ['basti'], '3', callback);
+        expect(set_score_mock).toHaveBeenCalledWith('nilo', 4);
+    });
 });
+
+
