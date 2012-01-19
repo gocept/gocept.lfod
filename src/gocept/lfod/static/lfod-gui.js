@@ -1,14 +1,13 @@
 (function($) {
 
 templates = {};
-api = new lfod.Lfod();
+api = new lfod.Lfod('http://localhost:5984/lfod/');
 
 var init_templates = function() {
     $('.template').each(function(idx, template) {
         var templ = $(template);
         var template_id = templ.attr('data-template-id');
         var code = templ.parent().html();
-        console.log(code);
         templates[template_id] = new jsontemplate.Template(code, 
             {default_formatter: 'html',
              undefined_str: '' });
@@ -26,7 +25,7 @@ var load_data = function(area, data) {
         var img = $(item);
         var src = img.attr('data-src');
         if (src) {
-            img.attr('src', src);
+            img.attr('src', src+'?d=monsterid');
         }
     });
 }
@@ -49,6 +48,8 @@ var fetch = function(ev) {
     var fetcher = $('.lfodder_fetch.selected').attr('data-id');
     var guests = $('input').val();
     api.fetch(fetcher, eaters, guests, update_ranking);
+    $('.toggle.selected').toggleClass('selected');
+    $('input').val('0');
 }
 
 var update_ranking = function() {
@@ -59,12 +60,16 @@ var update_lfodder = function() {
     api.get_fetchers(function(data) { load_data('lfodder', data); });
 }
 
+var increase_guests = function() {
+    $('input').val(parseInt($('input').val())+1);
+}
 
 $().ready(function() {
     init_templates();
     update_ranking();
     update_lfodder();
-    $('.toggle').click(select);
+    $('.toggle').not('#lfodder_eat_guests').click(select);
+    $('#lfodder_eat_guests').click(increase_guests);
     $('#button a').click(fetch);
 });
 

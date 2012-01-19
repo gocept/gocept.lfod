@@ -22,6 +22,20 @@ div.rank, div.lfodder, #button a, #guests {
 }
 
 div.lfodder {
+    border-radius:0;
+    background-color: transparent;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+#lfodder {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+div.lfodder {
     height: 19px;
     font-size: 15px;
 }
@@ -62,7 +76,7 @@ div.rank_name {
     float:left;
 }
 
-div.lfodder, div.rank {
+div.rank, #lfodder {
     margin-bottom: 10px;
 }
 
