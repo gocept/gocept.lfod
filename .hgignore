@@ -1,5 +1,8 @@
+syntax: glob
 .installed.cfg
 bin
+*~
+*.swp
 develop-eggs
 parts
 src/gocept.lfod.egg-info
