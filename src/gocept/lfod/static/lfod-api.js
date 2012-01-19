@@ -27,13 +27,25 @@ lfod.Lfod.prototype = {
     },
     get_ranking: function(callback) {
         //get lfodders sorted by score and pass to callback
-        var data = this.db_list_fetchers('score');
+        var data = this.list_fetchers('score');
         callback(data);
     },
     get_fetchers: function(callback) {
         //get lfodders sorted by name and pass to callback
-        var data = this.db_list_fetchers('name');
+        var data = this.list_fetchers('name');
         callback(data);
+    },
+    list_fetchers: function(sort) {
+        //return all fetchers stored in database
+        //sorted by given key
+        var result = this.db_list_fetchers(sort);
+        var data = [];
+        for(i=0; i<result.total_rows; i++) {
+            var res = result.rows[i].value;
+            res.id = result.rows[i].id;
+            data.push(res);
+        }
+        return data;
     },
     db_get_score: function(fetcher_id) {
         //get current fetcher score from database and return it
@@ -44,18 +56,9 @@ lfod.Lfod.prototype = {
         this.fetchers[fetcher_id].score = score;
     },
     db_list_fetchers: function(sort) {
-        //return all fetchers stored in database
-        //sorted by given key
         var response = $.ajax({
             url:this.database_url+'_design/lists/_view/list_by_'+sort,
             async:false});
-        var result = $.parseJSON(response.responseText);
-        var data = [];
-        for(i=0; i<result.total_rows; i++) {
-            var res = result.rows[i].value;
-            res.id = result.rows[i].id;
-            data.push(res);
-        }
-        return data;
+        return $.parseJSON(response.responseText);
     }
 }
