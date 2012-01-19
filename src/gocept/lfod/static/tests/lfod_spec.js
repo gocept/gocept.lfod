@@ -20,19 +20,6 @@ describe('Lfod api definition', function() {
     });
 });
 
-describe('Lfod api methods callback', function() {
-    var mylfod = new lfod.Lfod('some_url');
-    var callback = jasmine.createSpy('callback');
-    it('get_ranking method calls callback', function() {
-        mylfod.get_ranking(callback);
-        expect(callback).toHaveBeenCalled();
-    });
-    it('get_fetchers method calls callback', function() {
-        mylfod.get_fetchers(callback);
-        expect(callback).toHaveBeenCalled();
-    });
-});
-
 describe('Lfod can list fetchers', function() {
     var mylfod = new lfod.Lfod('some_url');
     var fake_data = [];
