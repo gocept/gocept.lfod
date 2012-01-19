@@ -94,4 +94,17 @@ describe('Lfod can handle guests', function() {
     });
 });
 
-
+describe('Handling of database JSON results', function() {
+    var mylfod = new lfod.Lfod('some_url');
+    var db_list_fetchers_mock = spyOn(mylfod, 'db_list_fetchers').andReturn(
+        {"total_rows": 2,
+         "rows": [{"id": "basti",
+                   "key": "Basti",
+                   "value": {"name":"Basti", "score":0}},
+                  {"id": "nilo",
+                   "key": "Nilo",
+                   "value": {"name":"Nilo", "score":4}}]})
+    expect(mylfod.list_fetchers('name')).toEqual(
+      [{name: 'Basti', score: 0, id: 'basti'},
+       {name: 'Nilo', score: 4, id: 'nilo'}]);
+});
