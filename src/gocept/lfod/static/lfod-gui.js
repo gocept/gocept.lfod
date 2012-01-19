@@ -1,25 +1,7 @@
 (function($) {
 
 templates = {};
-api = {};
-
-api.data = [{'id': 'nilo', 'name': 'Nilo', 'score': '5', 'avatar_url': ''},
-            {'id': 'basti', 'name': 'Basti', 'score': '3', 'avatar_url': ''}];
-
-
-api.fetch = function(fetcher, eaters, guests, cb) {
-    console.log(fetcher + eaters + guests);
-    api.data[0].score = api.data[0].score + 1;
-    cb();
-}
-
-api.get_ranking = function(cb) {
-    return cb(api.data);
-}
-
-api.get_fetchers = function(cb) {
-    return cb(api.data);
-}
+api = new lfod.Lfod();
 
 var init_templates = function() {
     $('.template').each(function(idx, template) {
