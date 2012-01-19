@@ -25,5 +25,4 @@ setup(
         'setuptools',
         'gocept.exttest',
         'gp.recipe.node',
-        'buildout_couchdb',
     ])
