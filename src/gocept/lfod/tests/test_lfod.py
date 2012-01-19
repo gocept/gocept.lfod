@@ -10,4 +10,4 @@ def test_suite():
     return gocept.exttest.makeSuite(
         os.environ.get('jasmine-bin'),
         '--json',
-        pkg_resources.resource_filename('gocept.lfod', 'js/tests'))
+        pkg_resources.resource_filename('gocept.lfod', '/static/tests'))
