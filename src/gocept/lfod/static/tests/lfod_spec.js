@@ -22,7 +22,7 @@ describe('Lfod api definition', function() {
 
 describe('Lfod api methods callback', function() {
     mylfod = new lfod.Lfod('some_url');
-    var callback = jasmine.createSpy('spy on callback');
+    var callback = jasmine.createSpy('callback');
     it('get_ranking method calls callback', function() {
         mylfod.get_ranking(callback);
         expect(callback).toHaveBeenCalled();
@@ -37,3 +37,31 @@ describe('Lfod api methods callback', function() {
     });
 });
 
+describe('Lfod can list fetchers', function() {
+    mylfod = new lfod.Lfod('some_url');
+    var fake_data = [];
+    var callback = jasmine.createSpy('callback');
+    var list_fetchers_mock = spyOn(mylfod, 'db_list_fetchers').andCallFake(function() {return fake_data;});
+    it('get_fetchers can handle empty data', function() {
+        mylfod.get_fetchers(callback);
+        expect(callback).toHaveBeenCalledWith([]);
+    });
+    it('get_fetchers returns data from database', function() {
+        fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
+        mylfod.get_fetchers(callback);
+        expect(callback).toHaveBeenCalledWith([{'name': 'Basti'}, {'name': 'Nilo'}]);
+    });
+    it('get_fetchers calls database method with sortkey name', function() {
+        mylfod.get_fetchers(function() {});
+        expect(list_fetchers_mock).toHaveBeenCalledWith('name');
+    });
+    it('get_ranking returns data from database', function() {
+        fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
+        mylfod.get_ranking(callback);
+        expect(callback).toHaveBeenCalledWith([{'name': 'Basti'}, {'name': 'Nilo'}]);
+    });
+    it('get_ranking calls database method with sortkey score', function() {
+        mylfod.get_ranking(function() {});
+        expect(list_fetchers_mock).toHaveBeenCalledWith('score');
+    });
+});

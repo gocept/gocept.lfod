@@ -14,11 +14,23 @@ lfod.Lfod.prototype = {
     },
     get_ranking: function(callback) {
         //get lfodders sorted by score and pass to callback
-        callback({});
+        var data = this.db_list_fetchers('score');
+        callback(data);
     },
     get_fetchers: function(callback) {
         //get lfodders sorted by name and pass to callback
-        callback({});
+        var data = this.db_list_fetchers('name');
+        callback(data);
+    },
+    db_get_score: function(fetcher_id) {
+        //get current fetcher score from database and return it
+    },
+    db_set_score: function(fetcher_id, score) {
+        //update fetcher score in database
+    },
+    db_list_fetchers: function(sort) {
+        //return all fetchers stored in database
+        //sorted by given key
     }
 }
 
