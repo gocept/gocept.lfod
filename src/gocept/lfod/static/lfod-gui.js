@@ -8,6 +8,7 @@ var init_templates = function() {
         var templ = $(template);
         var template_id = templ.attr('data-template-id');
         var code = templ.parent().html();
+        console.log(code);
         templates[template_id] = new jsontemplate.Template(code, 
             {default_formatter: 'html',
              undefined_str: '' });
@@ -20,6 +21,13 @@ var load_data = function(area, data) {
     $(data).each(function(idx, item) {
         var code = $(templates[area].expand(item));
         $('#'+area).append(code);
+    });
+    $('img').each(function(idx, item) {
+        var img = $(item);
+        var src = img.attr('data-src');
+        if (src) {
+            img.attr('src', src);
+        }
     });
 }
 
