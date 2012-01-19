@@ -9,7 +9,19 @@ lfod.Lfod.prototype = {
     construct: function(database_url) {
         this.database_url = database_url;
     },
-    fetch: function(fetcher, eaters, guests, callback) {
+    fetch: function(fetcher_id, eater_ids, guests, callback) {
+        for (var x=0; x<eater_ids.length; x++) {
+            var eater_id = eater_ids[x];
+            var current = this.db_get_score(eater_id);
+            this.db_set_score(eater_id, current-1);
+        }
+        var current_fetcher = this.db_get_score(fetcher_id);
+        current_fetcher += eater_ids.length + guests;
+        if (guests > 0) {
+            var guests_score = this.db_get_score('guests');
+            this.db_set_score('guests', guests_score - guests);
+        }
+        this.db_set_score(fetcher_id, current_fetcher)
         callback();
     },
     get_ranking: function(callback) {
