@@ -24,7 +24,7 @@ describe('Lfod can list fetchers', function() {
     var mylfod = new lfod.Lfod('some_url');
     var fake_data = [];
     var callback = jasmine.createSpy('callback');
-    var list_fetchers_mock = spyOn(mylfod, 'db_list_fetchers').andCallFake(function() {return fake_data;});
+    var list_fetchers_mock = spyOn(mylfod, 'list_fetchers').andCallFake(function() {return fake_data;});
     it('get_fetchers can handle empty data', function() {
         mylfod.get_fetchers(callback);
         expect(callback).toHaveBeenCalledWith([]);
