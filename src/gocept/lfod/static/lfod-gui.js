@@ -28,10 +28,16 @@ var load_data = function(area, data) {
             img.attr('src', src+'?d=monsterid');
         }
     });
-    show_only_three(hide=1);
+    do_show_only_three(1);
 }
 
-var show_only_three = function(hide) {
+var show_only_three = function(ev) {
+    ev.preventDefault();
+    do_show_only_three(0);
+    return false;
+}
+
+var do_show_only_three = function(hide) {
     $('.rank').each(function(idx, item) {
         if (idx>2) {
             if (hide == 1)
@@ -44,32 +50,45 @@ var show_only_three = function(hide) {
     $('#more a.less').hide();
 }
 
-var show_all = function () {
+var show_all = function (ev) {
+    ev.preventDefault();
     $('.rank').slideDown();
     $('#more a.more').hide();
     $('#more a.less').show();
+    return false;
 }
 
 var select = function(ev) {
+    ev.preventDefault();
     var link = $(ev.target);
     if (link.hasClass('lfodder_fetch')) {
         //only one can fetch, disable all other
+        $('#button a').addClass('activated');
         $('.lfodder_fetch.selected').toggleClass('selected');
     }
     link.toggleClass('selected');
+    return false;
 }
 
 var fetch = function(ev) {
+    ev.preventDefault();
+    var fetcher = $('.lfodder_fetch.selected').attr('data-id');
+    if (!fetcher) {
+        return false;
+    }
+    $('#app').block();
     var selected_eaters = $('.lfodder_eat.selected');
     var eaters = [];
     selected_eaters.each(function(idx, eater) {
         eaters.push($(eater).attr('data-id'));
     });
-    var fetcher = $('.lfodder_fetch.selected').attr('data-id');
     var guests = $('input').val();
     api.fetch(fetcher, eaters, guests, update_ranking);
     $('.toggle.selected').toggleClass('selected');
     $('input').val('0');
+    $('#button a').removeClass('activated');
+    $('#app').unblock();
+    return false;
 }
 
 var update_ranking = function() {
@@ -80,9 +99,11 @@ var update_lfodder = function() {
     api.get_fetchers(function(data) { load_data('lfodder', data); });
 }
 
-var increase_guests = function() {
+var increase_guests = function(ev) {
+    ev.preventDefault();
     $('input').val(parseInt($('input').val())+1);
     $('#guests').effect('highlight', {color: '#ffff00'}, 700);
+    return false;
 }
 
 $().ready(function() {

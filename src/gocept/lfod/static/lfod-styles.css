@@ -41,7 +41,7 @@ div.lfodder {
 }
 div.lfodder a {
     display: block;
-    color:black;
+    color:#bbb;
     text-decoration:none;
 }
 
@@ -81,10 +81,14 @@ div.rank, #lfodder {
 }
 
 #button a {
-    color:black;
+    color:#aaa;
     width: 120px;
     float:right;
     text-align:center;
+}
+
+#button a.activated {
+    color:#000;
 }
 
 #guests {
