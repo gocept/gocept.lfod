@@ -76,7 +76,7 @@ var fetch = function(ev) {
     if (!fetcher) {
         return false;
     }
-    $('#app').block();
+    $('#app').block({message:'<img src="ajax-loader.gif" />', css: {border:0, 'background-color':'transparent'}});
     var selected_eaters = $('.lfodder_eat.selected');
     var eaters = [];
     selected_eaters.each(function(idx, eater) {
