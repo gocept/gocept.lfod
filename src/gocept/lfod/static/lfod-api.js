@@ -54,14 +54,19 @@ lfod.Lfod.prototype = {
         var fetches = this.db_get_last_fetches();
         if (!fetches)
             return ['never fetched'];
-        var months = new Array(
-            "January", "February", "March", "April", "May", "June", "July",
-            "August", "September", "October", "November", "December");
         var result = [];
         for (x=0; x<fetches.length; x++) {
             var date = new Date();
             date.setTime(fetches[x]['time']);
-            date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+            var today = new Date();
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate()-1);
+            if (date.toDateString() == today.toDateString())
+                date = 'today';
+            else if (date.toDateString() == yesterday.toDateString())
+                date = 'yesterday';
+            else
+                date = date.toDateString();
             var fetcher = this.db_get_fetcher(fetches[x]['fetcher'])['name'];
             result.push({'date': date, 'fetcher': fetcher});
         }

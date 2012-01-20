@@ -117,10 +117,16 @@ describe('Handling of database JSON results', function() {
 });
 
 describe('Calculation of the logs', function() {
+
+    var today = new Date();
+    var yesterday = new Date();
+    yesterday.setDate(today.getDate()-1);
+    var thedaybeforeyesterday = new Date();
+    thedaybeforeyesterday.setDate(yesterday.getDate()-1);
     spyOn(mylfod, 'db_get_last_fetches').andReturn(
-        [{'fetcher': 'andrea', time: 1327064136876},
-         {'fetcher': 'nilo', time: 1327063813836},
-         {'fetcher': 'basti', time: 1327063778076}])
+        [{'fetcher': 'andrea', time: today.getTime()},
+         {'fetcher': 'nilo', time: yesterday.getTime()},
+         {'fetcher': 'basti', time: thedaybeforeyesterday.getTime()}])
     fetcher_names = {'andrea': {'name': 'Andrea'},
                      'basti': {'name': 'Basti'},
                      'nilo': {'name': 'Nilo'}};
@@ -131,8 +137,8 @@ describe('Calculation of the logs', function() {
     mylfod.get_last_fetches(callback);
     it('callback is called with fetcher and date logs', function() {
         expect(callback).toHaveBeenCalledWith(
-          [{date: 'January 20, 2012 13:55', fetcher: 'Andrea'},
-           {date: 'January 20, 2012 13:50', fetcher: 'Nilo'},
-           {date: 'January 20, 2012 13:49', fetcher: 'Basti'}]);
+          [{date: 'today', fetcher: 'Andrea'},
+           {date: 'yesterday', fetcher: 'Nilo'},
+           {date: thedaybeforeyesterday.toDateString(), fetcher: 'Basti'}]);
     });
 });
