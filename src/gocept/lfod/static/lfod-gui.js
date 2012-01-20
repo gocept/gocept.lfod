@@ -28,6 +28,23 @@ var load_data = function(area, data) {
             img.attr('src', src+'?d=monsterid');
         }
     });
+    show_only_three();
+}
+
+var show_only_three = function() {
+    $('.rank').each(function(idx, item) {
+        if (idx>2) {
+            $(item).hide();
+        }
+    });
+    $('#more a').text('+');
+    $('#more a').click(show_all);
+}
+
+var show_all = function () {
+    $('.rank').show();
+    $('#more a').click(show_only_three);
+    $('#more a').text('-');
 }
 
 var select = function(ev) {
@@ -62,6 +79,7 @@ var update_lfodder = function() {
 
 var increase_guests = function() {
     $('input').val(parseInt($('input').val())+1);
+    $('#guests').effect('highlight', {color: '#ffff00'}, 700);
 }
 
 $().ready(function() {
