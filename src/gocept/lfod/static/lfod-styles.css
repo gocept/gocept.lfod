@@ -11,7 +11,7 @@ body {
     background-color: black;
 }
 
-div.rank, div.lfodder, #button a, #guests {
+div.rank, div.lfodder, div.log, #button a, #guests {
     display: block;
     width: 260px;
     font-size: 20px;
@@ -21,6 +21,7 @@ div.rank, div.lfodder, #button a, #guests {
     padding:5px;
 }
 
+div.log,
 div.lfodder {
     border-radius:0;
     background-color: transparent;
@@ -28,6 +29,7 @@ div.lfodder {
     padding-top: 2px;
 }
 
+#log,
 #lfodder {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -62,6 +64,22 @@ div.lfodder_name {
 a.lfodder_fetch {
     float:right;
     width: 50px;
+}
+
+div#log {
+    margin-top: 10px;
+}
+
+div.log div {
+    font-size: 0.6em;
+}
+
+div.log div.log_date {
+    float: left;
+}
+
+div.log div.log_fetcher {
+    float: right;
 }
 
 div.rank_score {
@@ -108,6 +126,7 @@ input {
     background-color: transparent;
 }
 
+#more_logs,
 #more {
     width: 100%;
     text-align:center;
@@ -115,6 +134,7 @@ input {
     margin-bottom: 4px;
 }
 
+#more_logs a,
 #more a {
     border-radius: 7px;
     text-decoration:none;
