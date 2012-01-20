@@ -101,6 +101,19 @@ input {
     font-family: Georgia;
     margin:0;
     padding:0;
+    background-color: transparent;
+}
+
+#more {
+    width: 100%;
+    text-align:center;
+    margin-top:-12px;
+    margin-bottom: 4px;
+}
+
+#more a {
+    text-decoration:none;
+    color: white;
 }
 
 #button a:hover {
