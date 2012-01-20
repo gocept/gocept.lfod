@@ -114,7 +114,7 @@ lfod.Lfod.prototype = {
     },
     db_get_last_fetches: function() {
         var response = $.ajax({
-            url:this.log_database_url+'_design/lists/_view/list_by_time',
+            url:this.log_database_url+'_design/lists/_view/list_by_time?limit=5',
             async:false});
         var logs = $.parseJSON(response.responseText);
         if (logs.total_rows == 0)
