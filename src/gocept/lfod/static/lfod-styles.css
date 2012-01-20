@@ -116,8 +116,14 @@ input {
 }
 
 #more a {
+    border-radius: 7px;
     text-decoration:none;
-    color: white;
+    background-color: #FFFFFF;
+    color: #000000;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 0.8em;
 }
 
 #button a:hover {
