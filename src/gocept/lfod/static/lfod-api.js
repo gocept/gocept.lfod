@@ -49,11 +49,25 @@ lfod.Lfod.prototype = {
     },
     db_get_score: function(fetcher_id) {
         //get current fetcher score from database and return it
-        return this.fetchers[fetcher_id].score;
+        var response = $.ajax({
+            url:this.database_url+fetcher_id,
+            async:false});
+        return $.parseJSON(response.responseText)['score'];
     },
     db_set_score: function(fetcher_id, score) {
         //update fetcher score in database
-        this.fetchers[fetcher_id].score = score;
+        var response = $.ajax({
+            url:this.database_url+fetcher_id,
+            async:false});
+        fetcher = $.parseJSON(response.responseText);
+        fetcher['score'] = score;
+        var response = $.ajax({
+            url:this.database_url+fetcher_id,
+            data: JSON.stringify(fetcher),
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            async:false});
     },
     db_list_fetchers: function(sort) {
         var response = $.ajax({

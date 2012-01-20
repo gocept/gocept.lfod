@@ -28,23 +28,26 @@ var load_data = function(area, data) {
             img.attr('src', src+'?d=monsterid');
         }
     });
-    show_only_three();
+    show_only_three(hide=1);
 }
 
-var show_only_three = function() {
+var show_only_three = function(hide) {
     $('.rank').each(function(idx, item) {
         if (idx>2) {
-            $(item).hide();
+            if (hide == 1)
+                $(item).hide();
+            else
+                $(item).slideUp();
         }
     });
-    $('#more a').text('+');
-    $('#more a').click(show_all);
+    $('#more a.more').show();
+    $('#more a.less').hide();
 }
 
 var show_all = function () {
-    $('.rank').show();
-    $('#more a').click(show_only_three);
-    $('#more a').text('-');
+    $('.rank').slideDown();
+    $('#more a.more').hide();
+    $('#more a.less').show();
 }
 
 var select = function(ev) {
@@ -89,6 +92,9 @@ $().ready(function() {
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
     $('#button a').click(fetch);
+    $('#more a.more').click(show_all);
+    $('#more a.less').click(show_only_three);
+    $('#more a.less').hide();
 });
 
 })(jQuery);
