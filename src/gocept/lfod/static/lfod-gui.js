@@ -1,7 +1,7 @@
 (function($) {
 
 templates = {};
-api = new lfod.Lfod('http://localhost:5984/lfod/');
+api = new lfod.Lfod('http://localhost:5984/');
 
 var init_templates = function() {
     $('.template').each(function(idx, template) {
@@ -87,6 +87,7 @@ var fetch = function(ev) {
     $('.toggle.selected').toggleClass('selected');
     $('input').val('0');
     $('#button a').removeClass('activated');
+    update_log();
     $('#app').unblock();
     return false;
 }
@@ -99,6 +100,13 @@ var update_lfodder = function() {
     api.get_fetchers(function(data) { load_data('lfodder', data); });
 }
 
+var update_log = function() {
+    var fetches = api.get_last_fetches(
+        function(data) { load_data('log', data); });
+    $('div.log').hide();
+    $('div.log:first-child').show();
+}
+
 var increase_guests = function(ev) {
     ev.preventDefault();
     $('input').val(parseInt($('input').val())+1);
@@ -106,16 +114,24 @@ var increase_guests = function(ev) {
     return false;
 }
 
+var show_all_logs = function(ev) {
+    ev.preventDefault();
+    $('div.log').toggle();
+    $('div.log:first-child').show();
+}
+
 $().ready(function() {
     init_templates();
     update_ranking();
     update_lfodder();
+    update_log();
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
     $('#button a').click(fetch);
     $('#more a.more').click(show_all);
     $('#more a.less').click(show_only_three);
     $('#more a.less').hide();
+    $('#show_all_logs').click(show_all_logs);
 });
 
 })(jQuery);

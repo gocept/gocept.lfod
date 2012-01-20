@@ -5,7 +5,7 @@ describe('Lfod api definition', function() {
     it('api is defined', function() {
         expect(lfod.Lfod).toBeDefined();
     });
-    mylfod = new lfod.Lfod('some_url');
+    mylfod = new lfod.Lfod('http://localhost/');
     it('has fetch method', function() {
         expect(mylfod.fetch).toBeDefined();
     });
@@ -16,7 +16,10 @@ describe('Lfod api definition', function() {
         expect(mylfod.get_fetchers).toBeDefined();
     });
     it('database url saved', function() {
-        expect(mylfod.database_url).toEqual('some_url');
+        expect(mylfod.database_url).toEqual('http://localhost/lfod/');
+    });
+    it('log database url saved', function() {
+        expect(mylfod.log_database_url).toEqual('http://localhost/lfod_log/');
     });
 });
 
@@ -53,6 +56,7 @@ describe('Lfod calculates scores for eaters and fetcher', function() {
     var mylfod = new lfod.Lfod('some_url');
     var callback = function() {};
     var set_score_mock = spyOn(mylfod, 'db_set_score');
+    spyOn(mylfod, 'db_log_fetch');
     var current_score = {'nilo': -3, 'basti': 1, 'zagy': 2};
     spyOn(mylfod, 'db_get_score').andCallFake(
         function(fetcher_id) {return current_score[fetcher_id]});
