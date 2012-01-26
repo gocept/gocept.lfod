@@ -122,7 +122,7 @@ lfod.Lfod.prototype = {
         var result = [];
         for (x=1;x<=5;x++) {
             if (logs.total_rows-x >= 0)
-                result.push(logs['rows'][logs.total_rows-x]['value']);
+                result.push(logs['rows'][logs.total_rows-x-1]['value']);
         }
         return result;
     },
