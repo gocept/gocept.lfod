@@ -114,7 +114,7 @@ lfod.Lfod.prototype = {
     },
     db_get_last_fetches: function() {
         var response = $.ajax({
-            url:this.log_database_url+'_design/lists/_view/list_by_time?limit=5',
+            url:this.log_database_url+'_design/lists/_view/list_by_time',
             async:false});
         var logs = $.parseJSON(response.responseText);
         if (logs.total_rows == 0)
@@ -122,7 +122,7 @@ lfod.Lfod.prototype = {
         var result = [];
         for (x=1;x<=5;x++) {
             if (logs.total_rows-x >= 0)
-                result.push(logs['rows'][logs.total_rows-x-1]['value']);
+                result.push(logs['rows'][logs.total_rows-x]['value']);
         }
         return result;
     },
