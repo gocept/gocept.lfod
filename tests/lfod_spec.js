@@ -1,4 +1,4 @@
-var lfod = require('../lfod-api.js');
+var lfod = require('../src/lfod-api.js');
 
 
 describe('Lfod api definition', function() {

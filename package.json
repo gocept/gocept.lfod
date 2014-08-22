@@ -2,9 +2,9 @@
   "name": "gocept.jsform",
   "version": "1.2.0",
   "description": "",
-  "main": "src/gocept/lfod/static/lfod-gui.js",
+  "main": "src/lfod-gui.js",
   "scripts": {
-    "test": "jasmine-nodal src/gocept/lfod/static/tests/lfod_spec.js",
+    "test": "jasmine-nodal tests/lfod_spec.js",
     "build": "webpack"
   },
   "author": "gocept",
