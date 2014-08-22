@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/lfod-gui.js",
   "scripts": {
-    "test": "jasmine-nodal tests/lfod_spec.js",
+    "test": "jasmine-nodal --junit --color tests/lfod_spec.js",
     "build": "webpack"
   },
   "author": "gocept",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "exports-loader": "^0.6.2",
     "imports-loader": "^0.6.3",
-    "jasmine-nodal": "^1.1.0",
+    "jasmine-nodal": "git://github.com/sweh/jasmine-nodal.git#master",
     "webpack": "~1.3.2",
     "webpack-dev-server": "^1.4.10"
   }
