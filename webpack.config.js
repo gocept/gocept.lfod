@@ -6,7 +6,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            "^jsontemplate$": "json-template-foo"
+            "jsontemplate$": "json-template-foo"
         }
     },
     module: {

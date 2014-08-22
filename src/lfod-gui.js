@@ -1,6 +1,6 @@
 var $ = require('jquery');
 require('./jquery.blockUI.js');
-var jsontemplate = require('json-template-foo');
+var jsontemplate = require('jsontemplate');
 var lfod = require('./lfod-api.js');
 
 
