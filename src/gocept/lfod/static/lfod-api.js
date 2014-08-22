@@ -1,5 +1,7 @@
+var $ = require('jquery');
 
-lfod = {}
+
+lfod = {};
 
 lfod.Lfod = function() {
     this.construct.apply(this, arguments);
@@ -133,3 +135,5 @@ lfod.Lfod.prototype = {
         return $.parseJSON(response.responseText);
     }
 }
+
+module.exports = lfod;

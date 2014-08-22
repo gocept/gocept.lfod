@@ -4,5 +4,6 @@ bin
 *~
 *.swp
 develop-eggs
+node_modules
 parts
 src/gocept.lfod.egg-info

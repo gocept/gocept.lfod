@@ -1,0 +1,28 @@
+{
+  "name": "gocept.jsform",
+  "version": "1.2.0",
+  "description": "",
+  "main": "src/gocept/lfod/static/lfod-gui.js",
+  "scripts": {
+    "test": "jasmine-nodal src/gocept/lfod/static/tests/lfod_spec.js",
+    "build": "webpack"
+  },
+  "author": "gocept",
+  "repository": {
+    "type": "hg",
+    "url": "https://bitbucket.org/gocept/gocept.lfod"
+  },
+  "license": "ZPL 2.1",
+  "dependencies": {
+    "jquery": "^2.0.0",
+    "jquery-ui": "~1.10.0",
+    "json-template-foo": "~0.8.0"
+  },
+  "devDependencies": {
+    "exports-loader": "^0.6.2",
+    "imports-loader": "^0.6.3",
+    "jasmine-nodal": "^1.1.0",
+    "webpack": "~1.3.2",
+    "webpack-dev-server": "^1.4.10"
+  }
+}
