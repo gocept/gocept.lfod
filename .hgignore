@@ -6,4 +6,5 @@ bin
 develop-eggs
 node_modules
 parts
+junitresults-*
 src/gocept.lfod.egg-info
