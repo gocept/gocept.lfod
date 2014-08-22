@@ -1,7 +1,7 @@
 module.exports = {
-    entry: "./src/gocept/lfod/static/lfod-gui.js",
+    entry: "./src/lfod-gui.js",
     output: {
-        path: __dirname + "/src/gocept/lfod/static/",
+        path: __dirname + "/src",
         filename: "lfod.js"
     },
     resolve: {
