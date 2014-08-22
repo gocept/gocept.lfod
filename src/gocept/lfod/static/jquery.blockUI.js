@@ -26,8 +26,10 @@ var noOp = function() {};
 // this bit is to ensure we don't call setExpression when we shouldn't (with extra muscle to handle
 // retarded userAgent strings on Vista)
 var mode = document.documentMode || 0;
-var setExpr = $.browser.msie && (($.browser.version < 8 && !mode) || mode < 8);
-var ie6 = $.browser.msie && /MSIE 6.0/.test(navigator.userAgent) && !mode;
+// var setExpr = $.browser.msie && (($.browser.version < 8 && !mode) || mode < 8);
+// var ie6 = $.browser.msie && /MSIE 6.0/.test(navigator.userAgent) && !mode;
+var setExpr = false;
+var ie6 = false;
 
 // global $ methods for blocking/unblocking the entire page
 $.blockUI   = function(opts) { install(window, opts); };

@@ -1,4 +1,8 @@
-(function($) {
+var $ = require('jquery');
+require('./jquery.blockUI.js');
+var jsontemplate = require('json-template-foo');
+var lfod = require('./lfod-api.js');
+
 
 templates = {};
 api = new lfod.Lfod('http://localhost:5984/');
@@ -133,5 +137,3 @@ $().ready(function() {
     $('#more a.less').hide();
     $('#show_all_logs').click(show_all_logs);
 });
-
-})(jQuery);
