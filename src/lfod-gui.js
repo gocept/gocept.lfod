@@ -5,14 +5,14 @@ var lfod = require('./lfod-api.js');
 
 
 templates = {};
-api = new lfod.Lfod('http://localhost:5984/');
+api = new lfod.Lfod('http://lfod:dofl@lunch.gocept.com/db/');
 
 var init_templates = function() {
     $('.template').each(function(idx, template) {
         var templ = $(template);
         var template_id = templ.attr('data-template-id');
         var code = templ.parent().html();
-        templates[template_id] = new jsontemplate.Template(code, 
+        templates[template_id] = new jsontemplate.Template(code,
             {default_formatter: 'html',
              undefined_str: '' });
         templ.remove();
