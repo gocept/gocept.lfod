@@ -153,8 +153,6 @@
 	var update_log = function() {
 	    var fetches = api.get_last_fetches(
 	        function(data) { load_data('log', data); });
-	    $('div.log').hide();
-	    $('div.log:first-child').show();
 	}
 
 	var increase_guests = function(ev) {
@@ -182,6 +180,17 @@
 	    $('#more a.less').click(show_only_three);
 	    $('#more a.less').hide();
 	    $('#show_all_logs').click(show_all_logs);
+	    $('.favface').click(function (ev) {
+	        ev.preventDefault();
+	        $('.favface').removeClass('selected');
+	        $(ev.currentTarget).addClass('selected');
+	    });
+	    
+	    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+	    elems.forEach(function(html) {
+	      var switchery = new Switchery(html);
+	    });
 	});
 
 
