@@ -1,0 +1,1 @@
+../../src/switchery.js

@@ -1,7 +1,9 @@
 <html>
     <head>
+        <script src="switchery.js" type="text/javascript"></script>
         <script src="lfod.js" type="text/javascript"></script>
-        <link href="lfod-styles.css" rel="stylesheet" type="text/css" />
+        <link href="bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="switchery.css" rel="stylesheet" type="text/css" />
         <title>gocept LFOD tool NG</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,45 +14,49 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     </head>
     <body>
-        <div id="app">
-            <div id="ranking">
-                <div class="rank template" data-template-id="ranking">
-                    <div class="rank_image"><img src="" data-src="{avatar_url}" width="24" height="24" /></div>
-                    <div class="rank_name">{name}</div>
-                    <div class="rank_score">{score|str}</div>
-                    <div style="clear:both;"></div>
-                </div>
+      <div id="app">
+        <div class="favs">
+          <div id="ranking">
+            <div class="template" data-template-id="ranking">
+              <div class="favcont">
+                <div class="favface"
+                     style="background-image: url('{avatar_url}')"></div>
+                 <div class="favlabel">{name} <b>{score|str}</b></div>
+              </div>
             </div>
-            <div id="more">
-              <a href="" class="more">show all</a>
-              <a href="" class="less">show only three</a>
-            </div>
-            <div id="lfodder">
-                <div class="lfodder template" data-template-id="lfodder">
-                    <div class="lfodder_name">{name}</div>
-                    <a href="" class="lfodder_eat toggle" data-id="{id}" id="lfodder_eat_{id}">Eat</a>
-                    <a href="" class="lfodder_fetch toggle" data-id="{id}">Fetch</a>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-            <div id="button">
-                <div id="guests">
-                    <label for="guests">Guests:</label>
-                    <input type="text" maxlength="2" name="guests" value="0" size="2"/>
-                </div>
-                <a href="">Fetch</a>
-                <div style="clear:both;"></div>
-            </div>
-            <div id="log">
-                <div class="log template" data-template-id="log">
-                    <div class="log_date">{date}</div>
-                    <div class="log_fetcher">{fetcher}</div>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-            <div id="more_logs">
-              <a href="" id="show_all_logs">history</a>
-            </div>
+          </div>
         </div>
+        <div style="clear: both;"></div>
+        <div class="container rows r2">
+          <div id="lfodder" style="margin: 0px; padding: 0px;">
+            <div class="row lfodder template" data-template-id="lfodder">
+              <h4 class="rowtitle">{name}</h4>
+              <div style="float: right;">
+                <input type="checkbox" class="js-switch" value="{id}" />
+              </div>
+            </div>
+          </div>
+          <div class="row lfodder" id="guests"
+               style="border-bottom: 1px solid #cecdd1">
+            <h4 class="rowtitle">Guests</h4>
+            <div style="float: right;">
+                <input type="text" maxlength="2" style="width: 50px;"
+                     name="guests" value="0" size="2"/>
+            </div>
+          </div>
+        </div>
+        <div id="button">
+          <button class="primary" type="submit">Fetch</button>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="container rows r2">
+          <div id="log" style="margin: 0px; padding: 0px;">
+            <div class="row log template" data-template-id="log">
+              <h4 class="rowtitle">{date}</h4>
+              <h4 class="rowtitle rt2" style="float: right;">{fetcher}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
 </html>
