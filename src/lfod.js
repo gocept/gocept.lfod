@@ -68,6 +68,9 @@
 	var load_data = function(area, data) {
 	    $('#'+area).html('');
 	    $(data).each(function(idx, item) {
+            if ((area == 'lfodder') && (item.id == 'guests')) {
+                return;
+            }
 	        var code = $(templates[area].expand(item));
 	        $('#'+area).append(code);
 	    });
@@ -113,7 +116,7 @@
 	    var link = $(ev.target);
 	    if (link.hasClass('lfodder_fetch')) {
 	        //only one can fetch, disable all other
-	        $('#button a').addClass('activated');
+	        $('button.primary').addClass('activated');
 	        $('.lfodder_fetch.selected').toggleClass('selected');
 	    }
 	    link.toggleClass('selected');
@@ -122,22 +125,26 @@
 
 	var fetch = function(ev) {
 	    ev.preventDefault();
-	    var fetcher = $('.lfodder_fetch.selected').attr('data-id');
+	    var fetcher = $('.favface.selected').attr('data-id');
 	    if (!fetcher) {
 	        return false;
 	    }
+        $('.favface.selected').removeClass('selected');
 	    $('#app').block({message:'<img src="ajax-loader.gif" />', css: {border:0, 'background-color':'transparent'}});
-	    var selected_eaters = $('.lfodder_eat.selected');
+	    var selected_eaters = $('.js-switch');
 	    var eaters = [];
 	    selected_eaters.each(function(idx, eater) {
-	        eaters.push($(eater).attr('data-id'));
+	      if (eater.checked) {
+	        eaters.push(eater.value);
+            $(eater).click();
+          }
 	    });
-	    var guests = $('input').val();
+	    var guests = $('input[name=guests]').val();
 	    api.fetch(fetcher, eaters, guests, update_ranking);
-	    $('.toggle.selected').toggleClass('selected');
-	    $('input').val('0');
-	    $('#button a').removeClass('activated');
+	    $('input[name=guests]').val('0');
+	    $('button.primary').removeClass('activated');
 	    update_log();
+        $('.lfodder').fadeOut();
 	    $('#app').unblock();
 	    return false;
 	}
@@ -175,7 +182,7 @@
 	    update_log();
 	    $('.toggle').not('#lfodder_eat_guests').click(select);
 	    $('#lfodder_eat_guests').click(increase_guests);
-	    $('#button a').click(fetch);
+	    $('button.primary').click(fetch);
 	    $('#more a.more').click(show_all);
 	    $('#more a.less').click(show_only_three);
 	    $('#more a.less').hide();
@@ -184,8 +191,8 @@
 	        ev.preventDefault();
 	        $('.favface').removeClass('selected');
 	        $(ev.currentTarget).addClass('selected');
+            $('.lfodder').fadeIn();
 	    });
-	    
 	    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
 	    elems.forEach(function(html) {

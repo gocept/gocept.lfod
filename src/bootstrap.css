@@ -69,6 +69,10 @@ p {
   text-align: left;
 }
 
+#button {
+    text-align: center;
+}
+
 button {
   display: inline-block;
   padding: 10px;
@@ -85,7 +89,7 @@ button {
 
 button.success {
   box-shadow: none;
-  color: #4cd964;
+  color: rgb(100, 189, 99);
   font-size: 18px;
   font-weight: 300;
 }
@@ -99,9 +103,14 @@ button.delete {
 
 button.primary {
   box-shadow: none;
-  color: #248fee;
+  color: white;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 200;
+  background-color: rgb(100, 189, 99);
+}
+
+button:active {
+    color: black;
 }
 
 button.delete2 {
@@ -254,7 +263,7 @@ input.search:focus {
   border: 1px solid #ffffff;
 }
 .favface.selected {
-  border: 1px solid #4cd964;
+  border: 1px solid rgb(100, 189, 99);
 }
 .favface.letters {
   width: 72px;
