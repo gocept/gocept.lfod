@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gocept.lfod" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.gocept.lfod" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>LunchFetcher</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -7,6 +7,48 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
+    <preference name="Orientation" value="default" />
     <content src="index.html" />
     <access origin="*" />
+
+    <!-- App Icon (generate using App "Prepo") -->
+    <platform name="ios">
+        <!-- iOS 8.0+ -->
+        <!-- iPhone 6 Plus  -->
+        <icon src="res/ios/Icon-60@3x.png" width="180" height="180" />
+        <!-- iOS 7.0+ -->
+        <!-- iPhone / iPod Touch  -->
+        <icon src="res/ios/Icon-60.png" width="60" height="60" />
+        <icon src="res/ios/Icon-60@2x.png" width="120" height="120" />
+        <!-- iPad -->
+        <icon src="res/ios/Icon-76.png" width="76" height="76" />
+        <icon src="res/ios/Icon-76@2x.png" width="152" height="152" />
+        <!-- iOS 6.1 -->
+        <!-- Spotlight Icon -->
+        <icon src="res/ios/Icon-Spotlight-40.png" width="40" height="40" />
+        <icon src="res/ios/Icon-Spotlight-40@2x.png" width="80" height="80" />
+        <!-- iPhone / iPod Touch -->
+        <icon src="res/ios/Icon.png" width="57" height="57" />
+        <icon src="res/ios/Icon@2x.png" width="114" height="114" />
+        <!-- iPad -->
+        <icon src="res/ios/Icon-72.png" width="72" height="72" />
+        <icon src="res/ios/Icon-72@2x.png" width="144" height="144" />
+        <!-- iPhone Spotlight and Settings Icon -->
+        <icon src="res/ios/Icon-Small.png" width="29" height="29" />
+        <icon src="res/ios/Icon-Small@2x.png" width="58" height="58" />
+        <!-- iPad Spotlight and Settings Icon -->
+        <icon src="res/ios/Icon-Small-50.png" width="50" height="50" />
+        <icon src="res/ios/Icon-Small-50@2x.png" width="100" height="100" />
+    </platform>
+
+    <!-- Splash Screen (generate using App "Asset Catalog Creator") -->
+    <platform name="ios">
+        <splash src="res/ios/Default.png" width="320" height="480"/>
+        <splash src="res/ios/Default@2x.png" width="640" height="960"/>
+        <splash src="res/ios/Default~ipad.png" width="768" height="1024"/>
+        <splash src="res/ios/Default~ipad@2x.png" width="1536" height="2048"/>
+        <splash src="res/ios/Default~ipad~landscape.png" width="1024" height="768"/>
+        <splash src="res/ios/Default~ipad~landscape@2x.png" width="2048" height="1536"/>
+        <splash src="res/ios/Default-568h@2x.png" width="640" height="1136"/>
+    </platform>
 </widget>
