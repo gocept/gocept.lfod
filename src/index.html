@@ -20,14 +20,15 @@
             <div class="template" data-template-id="ranking">
               <div class="favcont">
                 <div class="favface"
-                     style="background-image: url('{avatar_url}')"></div>
+                     style="background-image: url('{avatar_url}')"
+                     data-id="{id}"></div>
                  <div class="favlabel">{name} <b>{score|str}</b></div>
               </div>
             </div>
           </div>
         </div>
         <div style="clear: both;"></div>
-        <div class="container rows r2">
+        <div class="lfodder container rows r2" style="display: none;">
           <div id="lfodder" style="margin: 0px; padding: 0px;">
             <div class="row lfodder template" data-template-id="lfodder">
               <h4 class="rowtitle">{name}</h4>
@@ -44,9 +45,10 @@
                      name="guests" value="0" size="2"/>
             </div>
           </div>
-        </div>
-        <div id="button">
-          <button class="primary" type="submit">Fetch</button>
+          <div style="clear:both"></div>
+          <div id="button">
+            <button class="button primary">Fetch</button>
+          </div>
         </div>
         <div style="clear:both;"></div>
         <div class="container rows r2">
