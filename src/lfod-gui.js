@@ -128,13 +128,16 @@ var show_all_logs = function(ev) {
 
 var load_settings = function () {
     var url = localStorage.getItem('lfod_url');
+    var dbname = localStorage.getItem('lfod_dbname');
     $('#settings_backend_url').val(url);
-    api = new lfod.Lfod(url);
+    $('#settings_dbname').val(dbname);
+    api = new lfod.Lfod(url, dbname);
 }
 
 var save_settings = function (ev) {
     localStorage.setItem('lfod_url', $('#settings_backend_url').val());
-    $().ready();
+    localStorage.setItem('lfod_dbname', $('#settings_dbname').val());
+    window.location.reload();
 }
 
 $().ready(function() {
@@ -155,10 +158,6 @@ $().ready(function() {
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
     $('#button button').click(fetch);
-    $('#more a.more').click(show_all);
-    $('#more a.less').click(show_only_three);
-    $('#more a.less').hide();
-    $('#show_all_logs').click(show_all_logs);
     $('.favface').click(function (ev) {
         ev.preventDefault();
         $('.favface').removeClass('selected');
