@@ -174,13 +174,16 @@
 
 	var load_settings = function () {
 	    var url = localStorage.getItem('lfod_url');
+	    var dbname = localStorage.getItem('lfod_dbname');
 	    $('#settings_backend_url').val(url);
-	    api = new lfod.Lfod(url);
+	    $('#settings_dbname').val(dbname);
+	    api = new lfod.Lfod(url, dbname);
 	}
 
 	var save_settings = function (ev) {
 	    localStorage.setItem('lfod_url', $('#settings_backend_url').val());
-	    $().ready();
+	    localStorage.setItem('lfod_dbname', $('#settings_dbname').val());
+	    window.location.reload();
 	}
 
 	$().ready(function() {
@@ -201,10 +204,6 @@
 	    $('.toggle').not('#lfodder_eat_guests').click(select);
 	    $('#lfodder_eat_guests').click(increase_guests);
 	    $('#button button').click(fetch);
-	    $('#more a.more').click(show_all);
-	    $('#more a.less').click(show_only_three);
-	    $('#more a.less').hide();
-	    $('#show_all_logs').click(show_all_logs);
 	    $('.favface').click(function (ev) {
 	        ev.preventDefault();
 	        $('.favface').removeClass('selected');
@@ -234,10 +233,10 @@
 	}
 
 	lfod.Lfod.prototype = {
-	    construct: function(couchdb_url) {
+	    construct: function(couchdb_url, db_name) {
 	        this.couchdb_url = couchdb_url;
-	        this.database_url = couchdb_url + 'lfod/';
-	        this.log_database_url = couchdb_url + 'lfod_log/';
+	        this.database_url = couchdb_url + db_name + '/';
+	        this.log_database_url = couchdb_url + db_name + '_log/';
 	    },
 	    fetch: function(fetcher_id, eater_ids, guests, callback) {
 	        for (var x=0; x<eater_ids.length; x++) {

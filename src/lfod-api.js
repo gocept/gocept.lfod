@@ -8,10 +8,10 @@ lfod.Lfod = function() {
 }
 
 lfod.Lfod.prototype = {
-    construct: function(couchdb_url) {
+    construct: function(couchdb_url, db_name) {
         this.couchdb_url = couchdb_url;
-        this.database_url = couchdb_url + 'lfod/';
-        this.log_database_url = couchdb_url + 'lfod_log/';
+        this.database_url = couchdb_url + db_name + '/';
+        this.log_database_url = couchdb_url + db_name + '_log/';
     },
     fetch: function(fetcher_id, eater_ids, guests, callback) {
         for (var x=0; x<eater_ids.length; x++) {
