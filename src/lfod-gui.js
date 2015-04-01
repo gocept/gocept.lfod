@@ -4,8 +4,8 @@ var jsontemplate = require('jsontemplate');
 var lfod = require('./lfod-api.js');
 
 
-templates = {};
-api = new lfod.Lfod('http://lfod:dofl@lunch.gocept.com/db/');
+var templates = {};
+var api;
 
 var init_templates = function() {
     $('.template').each(function(idx, template) {
@@ -67,7 +67,7 @@ var select = function(ev) {
     var link = $(ev.target);
     if (link.hasClass('lfodder_fetch')) {
         //only one can fetch, disable all other
-        $('#button a').addClass('activated');
+        $('#button button').addClass('activated');
         $('.lfodder_fetch.selected').toggleClass('selected');
     }
     link.toggleClass('selected');
@@ -76,22 +76,26 @@ var select = function(ev) {
 
 var fetch = function(ev) {
     ev.preventDefault();
-    var fetcher = $('.lfodder_fetch.selected').attr('data-id');
+    var fetcher = $('.favface.selected').attr('data-id');
     if (!fetcher) {
         return false;
     }
+    $('.favface.selected').removeClass('selected');
     $('#app').block({message:'<img src="ajax-loader.gif" />', css: {border:0, 'background-color':'transparent'}});
-    var selected_eaters = $('.lfodder_eat.selected');
+    var selected_eaters = $('.js-switch');
     var eaters = [];
     selected_eaters.each(function(idx, eater) {
-        eaters.push($(eater).attr('data-id'));
+      if (eater.checked) {
+        eaters.push(eater.value);
+        $(eater).click();
+      }
     });
-    var guests = $('input').val();
+    var guests = $('input[name=guests]').val();
     api.fetch(fetcher, eaters, guests, update_ranking);
-    $('.toggle.selected').toggleClass('selected');
-    $('input').val('0');
-    $('#button a').removeClass('activated');
+    $('input[name=guests]').val('0');
+    $('button.primary').removeClass('activated');
     update_log();
+    $('.lfodder').fadeOut();
     $('#app').unblock();
     return false;
 }
@@ -122,14 +126,35 @@ var show_all_logs = function(ev) {
     $('div.log:first-child').show();
 }
 
+var load_settings = function () {
+    var url = localStorage.getItem('lfod_url');
+    $('#settings_backend_url').val(url);
+    api = new lfod.Lfod(url);
+}
+
+var save_settings = function (ev) {
+    localStorage.setItem('lfod_url', $('#settings_backend_url').val());
+    $().ready();
+}
+
 $().ready(function() {
+    $('.icon').click(function (ev) {
+        ev.preventDefault();
+        if ($('.modal').hasClass('visible')) {
+            $('.modal').removeClass('visible');
+        } else {
+            $('.modal').addClass('visible');
+        }
+    });
+    $('.btn-save-settings').click(save_settings);
+    load_settings();
     init_templates();
     update_ranking();
     update_lfodder();
     update_log();
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
-    $('#button a').click(fetch);
+    $('#button button').click(fetch);
     $('#more a.more').click(show_all);
     $('#more a.less').click(show_only_three);
     $('#more a.less').hide();
@@ -138,6 +163,7 @@ $().ready(function() {
         ev.preventDefault();
         $('.favface').removeClass('selected');
         $(ev.currentTarget).addClass('selected');
+        $('.lfodder').fadeIn();
     });
     
     var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));

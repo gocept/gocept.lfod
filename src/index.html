@@ -16,7 +16,7 @@
     </head>
     <body>
       <header class="bar bar-nav">
-        <a href="#settingsModal" class="icon icon-gear pull-right"></a>
+        <a href="" class="icon icon-gear pull-right"></a>
         <h1 class="title">gocept lfod</h1>
       </header>
       <div id="app">
@@ -51,8 +51,8 @@
             </div>
           </div>
           <div style="clear:both"></div>
-          <div id="button">
-            <button class="button primary">Fetch</button>
+          <div id="button" class="content-padded">
+            <button class="btn btn-positive btn-block">Fetch</button>
           </div>
         </div>
         <div style="clear:both;"></div>
@@ -65,5 +65,23 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="settingsModal">
+        <header class="bar bar-nav">
+          <a href="" class="icon icon-close pull-right"></a>
+          <h1 class="title">Settings</h1>
+        </header>
+
+      <div class="content">
+        <form class="input-group">
+          <input type="text" placeholder="Backend URL" value=""
+                 id="settings_backend_url" >
+        </form>
+
+        <div class="content-padded">
+          <button class="btn btn-positive btn-block btn-save-settings">
+            Save settings</button>
+        </div>
+      </div>
+    </div>
     </body>
 </html>
