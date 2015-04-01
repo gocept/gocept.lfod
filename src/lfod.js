@@ -69,6 +69,9 @@
 	    $('#'+area).html('');
 	    $(data).each(function(idx, item) {
 	        var code = $(templates[area].expand(item));
+	        if ((area == 'lfodder') && (item.id == 'guests')) {
+	            return
+	        }
 	        $('#'+area).append(code);
 	    });
 	    $('img').each(function(idx, item) {
@@ -206,9 +209,15 @@
 	    $('#button button').click(fetch);
 	    $('.favface').click(function (ev) {
 	        ev.preventDefault();
-	        $('.favface').removeClass('selected');
-	        $(ev.currentTarget).addClass('selected');
-	        $('.lfodder').fadeIn();
+	        var selected = $(ev.currentTarget);
+	        if (selected.hasClass('selected')) {
+	            selected.removeClass('selected');
+	            $('.lfodder').fadeOut();
+	        } else {
+	            $('.favface').removeClass('selected');
+	            selected.addClass('selected');
+	            $('.lfodder').fadeIn();
+	        }
 	    });
 	    
 	    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
