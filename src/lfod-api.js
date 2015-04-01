@@ -14,8 +14,6 @@ lfod.Lfod.prototype = {
         this.log_database_url = couchdb_url + 'lfod_log/';
     },
     fetch: function(fetcher_id, eater_ids, guests, callback) {
-        debugger;
-        return;
         for (var x=0; x<eater_ids.length; x++) {
             var eater_id = eater_ids[x];
             var current = this.db_get_score(eater_id);
