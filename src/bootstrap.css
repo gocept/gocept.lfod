@@ -691,3 +691,9 @@ to {
     margin-left:50px;
 }
 }
+
+.modal.visible {
+    opacity: 100;
+    transform: inherit !important;
+    left: 0;
+}
