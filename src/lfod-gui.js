@@ -85,7 +85,7 @@ var fetch = function(ev) {
     }
     $('.favface.selected').removeClass('selected');
     $('#app').block({message:'<img src="ajax-loader.gif" />', css: {border:0, 'background-color':'transparent'}});
-    var selected_eaters = $('.js-switch');
+    var selected_eaters = $('.lfodder .js-switch');
     var eaters = [];
     selected_eaters.each(function(idx, eater) {
       if (eater.checked) {
@@ -118,6 +118,28 @@ var update_log = function() {
     $('div.log:first-child').show();
 }
 
+var items = function (obj) {
+  var i, arr = [];
+  for(i in obj) {
+    obj[i].id = i;
+    arr.push(obj[i]);
+  }
+  return arr;
+}
+
+var update_settings = function () {
+    var data = JSON.parse(localStorage.getItem('lfod_dbs'));
+    var active_db = localStorage.getItem('lfod_db');
+    if (data) {
+        data = items(data);
+        load_data('dblist', data);
+        $('.dblist input.js-switch[value="' + active_db + '"]')[0].checked = true;
+    } else {
+        $('.dblist_cont').fadeOut();
+        $('.icon-close').click();
+    }
+}
+
 var increase_guests = function(ev) {
     ev.preventDefault();
     $('input').val(parseInt($('input').val())+1);
@@ -132,16 +154,43 @@ var show_all_logs = function(ev) {
 }
 
 var load_settings = function () {
-    var url = localStorage.getItem('lfod_url');
-    var dbname = localStorage.getItem('lfod_dbname');
-    $('#settings_backend_url').val(url);
-    $('#settings_dbname').val(dbname);
+    var active_db = localStorage.getItem('lfod_db');
+    if (!active_db) {
+        $('.dblist_cont').addClass('hidden');
+        $('.icon-close').addClass('hidden');
+        $('.icon-close').click();
+        return
+    }
+    $('h1.title').text(active_db);
+    db_list = JSON.parse(localStorage.getItem('lfod_dbs'));
+    var url = db_list[active_db].url;
+    var dbname = db_list[active_db].dbname;
     api = new lfod.Lfod(url, dbname);
 }
 
 var save_settings = function (ev) {
-    localStorage.setItem('lfod_url', $('#settings_backend_url').val());
-    localStorage.setItem('lfod_dbname', $('#settings_dbname').val());
+    var name = $('#settings_name').val();
+    var url = $('#settings_backend_url').val();
+    var dbname = $('#settings_dbname').val();
+    if (!name) {
+        alert("Please provide a name for the db entry.");
+        return;
+    }
+    if (!url) {
+        alert("Please provide the url to the database.");
+        return;
+    }
+    if (!dbname) {
+        alert("Please provide the database name.");
+        return;
+    }
+    var db_list = JSON.parse(localStorage.getItem('lfod_dbs'));
+    if (!db_list) {
+        db_list = {};
+    }
+    db_list[name] = {url: url, dbname: dbname};
+    localStorage.setItem("lfod_dbs", JSON.stringify(db_list));
+    localStorage.setItem("lfod_db", name);
     window.location.reload();
 }
 
@@ -160,6 +209,7 @@ $().ready(function() {
     update_ranking();
     update_lfodder();
     update_log();
+    update_settings();
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
     $('#button button').click(fetch);

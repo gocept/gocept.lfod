@@ -758,3 +758,9 @@ input[type=number] {
 .container.lfodder {
     padding-bottom: 30px;
 }
+.bar-nav ~ .content {
+    padding-top: 40px !important;
+}
+.hidden {
+    display: none !important;
+}
