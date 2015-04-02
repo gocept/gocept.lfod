@@ -22,15 +22,19 @@
       <div id="app">
         <div class="favs">
           <p class="table-view-cell table-view-divider">Select fetcher</p>
-          <div id="ranking">
-            <div class="template" data-template-id="ranking">
+          <div>
+          <table>
+            <tr id="ranking">
+              <td class="template" data-template-id="ranking">
               <div class="favcont">
                 <div class="favface"
                      style="background-image: url('{avatar_url}')"
                      data-id="{id}"></div>
                  <div class="favlabel">{name} <b>{score|str}</b></div>
               </div>
-            </div>
+              </td>
+            </tr>
+          </table>
           </div>
         </div>
         <div style="clear: both;"></div>
@@ -48,13 +52,13 @@
                style="border-bottom: 1px solid #cecdd1">
             <h4 class="rowtitle">Guests</h4>
             <div style="float: right;">
-                <input type="text" maxlength="2" name="guests" value="0"
-                       size="2" style="width: 30px; height: 22px; padding: 0px" />
+                <input type="number" maxlength="2" name="guests" value="0"
+                       size="2" style="width: 35px; height: 22px; padding: 0px" />
             </div>
           </div>
           <div style="clear:both"></div>
           <div id="button" class="content-padded">
-            <button class="btn btn-positive btn-block">Fetch</button>
+            <button class="btn btn-positive btn-block">Save fetch</button>
           </div>
         </div>
         <div style="clear:both;"></div>
