@@ -133,7 +133,13 @@ var update_settings = function () {
     if (data) {
         data = items(data);
         load_data('dblist', data);
-        $('.dblist input.js-switch[value="' + active_db + '"]')[0].checked = true;
+        var switcher = $('.dblist input.js-switch[value="' + active_db + '"]');
+        if (switcher.length) {
+            switcher[0].checked = true;
+        }
+        $('.dblist .js-switch').each(function (id, html) {
+          var switchery = new Switchery(html, { size: 'small' });
+        });
     } else {
         $('.dblist_cont').fadeOut();
         $('.icon-close').click();
@@ -156,7 +162,6 @@ var show_all_logs = function(ev) {
 var load_settings = function () {
     var active_db = localStorage.getItem('lfod_db');
     if (!active_db) {
-        $('.dblist_cont').addClass('hidden');
         $('.icon-close').addClass('hidden');
         $('.icon-close').click();
         return
@@ -194,6 +199,17 @@ var save_settings = function (ev) {
     window.location.reload();
 }
 
+var update_active = function () {
+    localStorage.removeItem("lfod_db", name);
+    var available_dbs = $('.dblist .js-switch');
+    available_dbs.each(function(idx, db) {
+      if (db.checked) {
+        localStorage.setItem("lfod_db", db.value);
+      }
+    });
+    window.location.reload();
+}
+
 $().ready(function() {
     $('.icon').click(function (ev) {
         ev.preventDefault();
@@ -204,12 +220,13 @@ $().ready(function() {
         }
     });
     $('.btn-save-settings').click(save_settings);
-    load_settings();
+    $('.btn-update-active').click(update_active);
     init_templates();
+    load_settings();
+    update_settings();
     update_ranking();
     update_lfodder();
     update_log();
-    update_settings();
     $('.toggle').not('#lfodder_eat_guests').click(select);
     $('#lfodder_eat_guests').click(increase_guests);
     $('#button button').click(fetch);
@@ -225,10 +242,8 @@ $().ready(function() {
             $('.lfodder').fadeIn();
         }
     });
-    
-    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
-    elems.forEach(function(html) {
+    $('.lfodder .js-switch').each(function (id, html) {
       var switchery = new Switchery(html, { size: 'small' });
     });
 });
