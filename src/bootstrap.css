@@ -265,7 +265,7 @@ input.search:focus {
   border: 1px solid #ffffff;
 }
 .favface.selected {
-  border: 1px solid rgb(100, 189, 99);
+  border: 1px solid #747a7d;
   opacity: 0.4;
  filter: alpha(opacity=40);
 }
@@ -723,10 +723,38 @@ input[type=number] {
 
 #log {
     text-align: right;
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    width: 100%;
+    z-index: 102;
 }
 
 #log .log {
     text-align: right;
     width: 100%;
     padding-right: 5px;
+    height: 30px !important;
+    background-color: #51a6dc !important;
+    border-bottom: 1px solid #51a6dc !important;
+}
+
+/* gocept colors */
+
+.bar-nav {
+    background-color: #51a6dc !important;
+}
+
+.bar-nav h1,
+.bar-nav a.icon {
+    color: #ffffff;
+}
+
+.table-view-divider {
+    background-color: #747a7d !important;
+    color: #ffffff !important;
+}
+
+.container.lfodder {
+    padding-bottom: 30px;
 }
