@@ -114,6 +114,8 @@ var update_lfodder = function() {
 var update_log = function() {
     var fetches = api.get_last_fetches(
         function(data) { load_data('log', data); });
+    $('div.log').hide();
+    $('div.log:first-child').show();
 }
 
 var increase_guests = function(ev) {

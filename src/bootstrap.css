@@ -720,3 +720,13 @@ to {
 input[type=number] {
     text-align: center;
 }
+
+#log {
+    text-align: right;
+}
+
+#log .log {
+    text-align: right;
+    width: 100%;
+    padding-right: 5px;
+}
