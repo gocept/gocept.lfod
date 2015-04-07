@@ -18,3 +18,11 @@
 <true/>
 <key>UIViewControllerBasedStatusBarAppearance</key>
 <false/>
+
+## Disable Push Notification API
+
+* It's not used atm, but cordova creates the API functions anyway, resulting in
+  a warning by Apple
+* Go to `platforms/ios/LunchFetcher/Classes/AppDelegate.m` and remove
+  everything which is wrapped inside `#ifndef DISABLE_PUSH_NOTIFICATIONS`
+  (only worked for older versions of cordova)
