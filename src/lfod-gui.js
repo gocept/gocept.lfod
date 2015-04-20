@@ -7,6 +7,7 @@ var lfod = require('./lfod-api.js');
 var templates = {};
 var api;
 
+
 var init_templates = function() {
     $('.template').each(function(idx, template) {
         var templ = $(template);
@@ -162,12 +163,19 @@ var show_all_logs = function(ev) {
 var load_settings = function () {
     var active_db = localStorage.getItem('lfod_db');
     if (!active_db) {
-        $('.icon-close').addClass('hidden');
-        $('.icon-close').click();
-        return
+        active_db = 'Test DB';
     }
     $('h1.title').text(active_db);
     db_list = JSON.parse(localStorage.getItem('lfod_dbs'));
+    if (!db_list) {
+        db_list = {};
+        db_list['Test DB'] = {
+            url: 'http://testuser:123@lunch.gocept.com/db/',
+            dbname: 'test'
+        };
+        localStorage.setItem("lfod_dbs", JSON.stringify(db_list));
+        localStorage.setItem("lfod_db", 'TEST');
+    }
     var url = db_list[active_db].url;
     var dbname = db_list[active_db].dbname;
     api = new lfod.Lfod(url, dbname);
