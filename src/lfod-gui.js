@@ -170,7 +170,7 @@ var load_settings = function () {
     if (!db_list) {
         db_list = {};
         db_list['Test DB'] = {
-            url: 'http://testuser:123@lunch.gocept.com/db/',
+            url: 'https://testuser:123@lunch.gocept.com/db/',
             dbname: 'test'
         };
         localStorage.setItem("lfod_dbs", JSON.stringify(db_list));
