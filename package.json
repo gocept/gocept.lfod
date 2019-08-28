@@ -10,7 +10,7 @@
   "author": "gocept",
   "repository": {
     "type": "hg",
-    "url": "https://bitbucket.org/gocept/gocept.lfod"
+    "url": "https://github.com/gocept/gocept.lfod"
   },
   "license": "ZPL 2.1",
   "dependencies": {
