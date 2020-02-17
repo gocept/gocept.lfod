@@ -1,24 +1,22 @@
-module.exports = {
-    entry: "./src/lfod-gui.js",
-    output: {
-        path: __dirname + "/src",
-        filename: "lfod.js"
-    },
-    resolve: {
-        alias: {
-            "jsontemplate$": "json-template-foo"
-        }
-    },
-    module: {
-        loaders: [
-            {
-                test: /json-template\.js/,
-                loader: "imports?exports=>{}!exports?exports"
-            },
-            {
-                test: /jquery\.blockUI\.js/,
-                loader: "imports?jQuery=jquery"
-            },
-        ]
+const webpack = require('webpack');
+
+module.exports = mode => {
+    return {
+        entry: "./src/lfod-gui.js",
+        mode: mode,
+        output: {
+            path: __dirname + "/src",
+            filename: "lfod.js"
+        },
+        resolve: {
+            alias: {
+                "jsontemplate$": "json-template-foo"
+            }
+        },
+        plugins: [
+            new webpack.ProvidePlugin({
+                jQuery: 'jquery',
+            }),
+        ],
     }
 };

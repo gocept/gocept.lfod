@@ -1,11 +1,20 @@
 var lfod = require('../src/lfod-api.js');
 
 
-describe('Lfod api definition', function() {
-    it('api is defined', function() {
+describe('Lfod module structure', function() {
+    it('has Lfod defined', function() {
         expect(lfod.Lfod).toBeDefined();
     });
-    mylfod = new lfod.Lfod('http://localhost/');
+});
+
+
+describe('Lfod api definition', function() {
+    var mylfod;
+
+    beforeAll(function() {
+        mylfod = new lfod.Lfod('http://localhost/');
+    });
+     
     it('has fetch method', function() {
         expect(mylfod.fetch).toBeDefined();
     });
@@ -23,90 +32,125 @@ describe('Lfod api definition', function() {
     });
 });
 
+
 describe('Lfod can list fetchers', function() {
-    var mylfod = new lfod.Lfod('some_url');
-    var fake_data = [];
-    var callback = jasmine.createSpy('callback');
-    var list_fetchers_mock;
-    beforeEach(function() {
-        list_fetchers_mock = spyOn(mylfod, 'list_fetchers').and.callFake(function() {return fake_data;});
+    var mylfod;
+    var callback;
+
+    beforeAll(function() {
+        mylfod = new lfod.Lfod('some_url');
+        callback = jasmine.createSpy('callback');
     });
+
+    beforeEach(function() {
+        this.list_fetchers_mock = spyOn(mylfod, 'list_fetchers').and.callFake(() => this.fake_data);
+    });
+
     it('get_fetchers can handle empty data', function() {
+        this.fake_data = [];
         mylfod.get_fetchers(callback);
         expect(callback).toHaveBeenCalledWith([]);
     });
+
     it('get_fetchers returns data from database', function() {
-        fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
+        this.fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
         mylfod.get_fetchers(callback);
         expect(callback).toHaveBeenCalledWith([{'name': 'Basti'}, {'name': 'Nilo'}]);
     });
+
     it('get_fetchers calls database method with sortkey name', function() {
         mylfod.get_fetchers(function() {});
-        expect(list_fetchers_mock).toHaveBeenCalledWith('name');
+        expect(this.list_fetchers_mock).toHaveBeenCalledWith('name');
     });
+
     it('get_ranking returns data from database', function() {
-        fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
+        this.fake_data = [{'name': 'Basti'}, {'name': 'Nilo'}];
         mylfod.get_ranking(callback);
         expect(callback).toHaveBeenCalledWith([{'name': 'Basti'}, {'name': 'Nilo'}]);
     });
+
     it('get_ranking calls database method with sortkey score', function() {
         mylfod.get_ranking(function() {});
-        expect(list_fetchers_mock).toHaveBeenCalledWith('score');
+        expect(this.list_fetchers_mock).toHaveBeenCalledWith('score');
     });
 });
 
+
 describe('Lfod calculates scores for eaters and fetcher', function() {
-    var mylfod = new lfod.Lfod('some_url');
-    var callback = function() {};
-    var set_score_mock = spyOn(mylfod, 'db_set_score');
-    spyOn(mylfod, 'db_log_fetch');
-    var current_score = {'nilo': -3, 'basti': 1, 'zagy': 2};
-    spyOn(mylfod, 'db_get_score').and.callFake(
-        function(fetcher_id) {return current_score[fetcher_id]});
-    mylfod.fetch('nilo', ['basti', 'zagy'], 0, callback);
+    var set_score_mock;
+    
+    beforeAll( function() {
+        var mylfod = new lfod.Lfod('some_url');
+        var callback = function() {};
+        set_score_mock = spyOn(mylfod, 'db_set_score');
+        spyOn(mylfod, 'db_log_fetch');
+        var current_score = {'nilo': -3, 'basti': 1, 'zagy': 2};
+        spyOn(mylfod, 'db_get_score').and.callFake(function(fetcher_id) {return current_score[fetcher_id]});
+        mylfod.fetch('nilo', ['basti', 'zagy'], 0, callback);
+    });
+    
     it('nilos score is increased by number of eater', function() {
         expect(set_score_mock).toHaveBeenCalledWith('nilo', -1);
     });
+
     it('bastis score is reduced by one', function() {
         expect(set_score_mock).toHaveBeenCalledWith('basti', 0);
     });
+
     it('zagys score is reduced by one', function() {
         expect(set_score_mock).toHaveBeenCalledWith('zagy', 1);
     });
 });
 
+
 describe('Lfod can handle guests', function() {
-    var mylfod = new lfod.Lfod('some_url');
-    var callback = function() {};
-    var set_score_mock;
+    var mylfod;
+    var callback;
+
+    beforeAll(function() {
+        mylfod = new lfod.Lfod('some_url');
+        callback = function() {};
+    });
+    
     beforeEach(function() {
-        set_score_mock = spyOn(mylfod, 'db_set_score');
+        this.set_score_mock = spyOn(mylfod, 'db_set_score');
         var current_score = {'nilo': -3, 'basti': 1, 'zagy': 2, 'guests': 0};
         spyOn(mylfod, 'db_log_fetch');
         spyOn(mylfod, 'db_get_score').and.callFake(
             function(fetcher_id) {return current_score[fetcher_id]});
         mylfod.fetch('nilo', ['basti', 'zagy'], 5, callback);
     });
+
     it('nilos score is increased by number of eater and guests', function() {
-        expect(set_score_mock).toHaveBeenCalledWith('nilo', 4);
+        expect(this.set_score_mock).toHaveBeenCalledWith('nilo', 4);
     });
+
     it('bastis score is reduced by one', function() {
-        expect(set_score_mock).toHaveBeenCalledWith('basti', 0);
+        expect(this.set_score_mock).toHaveBeenCalledWith('basti', 0);
     });
+
     it('zagys score is reduced by one', function() {
-        expect(set_score_mock).toHaveBeenCalledWith('zagy', 1);
+        expect(this.set_score_mock).toHaveBeenCalledWith('zagy', 1);
     });
+
     it('guests score is reduced by number of guests', function() {
-        expect(set_score_mock).toHaveBeenCalledWith('guests', -5);
+        expect(this.set_score_mock).toHaveBeenCalledWith('guests', -5);
     });
+
     it('number of guests can be given as string', function() {
         mylfod.fetch('nilo', ['basti'], '3', callback);
-        expect(set_score_mock).toHaveBeenCalledWith('nilo', 4);
+        expect(this.set_score_mock).toHaveBeenCalledWith('nilo', 4);
     });
 });
 
+
 describe('Handling of database JSON results', function() {
-    var mylfod = new lfod.Lfod('some_url');
+    var mylfod;
+
+    beforeAll(function() {
+        mylfod = new lfod.Lfod('some_url');
+    });
+
     beforeEach(function() {
         var db_list_fetchers_mock = spyOn(
             mylfod, 'db_list_fetchers').and.returnValue(
@@ -118,6 +162,7 @@ describe('Handling of database JSON results', function() {
                        "key": "Nilo",
                        "value": {"name":"Nilo", "score":4}}]});
     });
+
     it('list_fetchers returns name, score and id of fetchers', function() {
         expect(mylfod.list_fetchers('name')).toEqual(
           [{name: 'Basti', score: 0, id: 'basti'},
@@ -125,25 +170,33 @@ describe('Handling of database JSON results', function() {
     });
 });
 
-describe('Calculation of the logs', function() {
 
-    var today = new Date();
-    var yesterday = new Date();
-    yesterday.setDate(today.getDate()-1);
-    var thedaybeforeyesterday = new Date();
-    thedaybeforeyesterday.setDate(yesterday.getDate()-1);
-    spyOn(mylfod, 'db_get_last_fetches').and.returnValue(
-        [{'fetcher': 'andrea', time: today.getTime()},
-         {'fetcher': 'nilo', time: yesterday.getTime()},
-         {'fetcher': 'basti', time: thedaybeforeyesterday.getTime()}])
-    fetcher_names = {'andrea': {'name': 'Andrea'},
-                     'basti': {'name': 'Basti'},
-                     'nilo': {'name': 'Nilo'}};
-    spyOn(mylfod, 'db_get_fetcher').and.callFake(
-        function(fetcher_id) {return fetcher_names[fetcher_id]});
-    spyOn(mylfod, 'db_log_fetch');
-    var callback = jasmine.createSpy('callback');
-    mylfod.get_last_fetches(callback);
+describe('Calculation of the logs', function() {
+    var callback;
+    var thedaybeforeyesterday;
+    var mylfod;
+
+    beforeAll(function() {
+        mylfod = new lfod.Lfod('some_url');
+        var today = new Date();
+        var yesterday = new Date();
+        yesterday.setDate(today.getDate()-1);
+        thedaybeforeyesterday = new Date();
+        thedaybeforeyesterday.setDate(yesterday.getDate()-1);
+        spyOn(mylfod, 'db_get_last_fetches').and.returnValue(
+            [{'fetcher': 'andrea', time: today.getTime()},
+                {'fetcher': 'nilo', time: yesterday.getTime()},
+                {'fetcher': 'basti', time: thedaybeforeyesterday.getTime()}])
+        fetcher_names = {'andrea': {'name': 'Andrea'},
+                            'basti': {'name': 'Basti'},
+                            'nilo': {'name': 'Nilo'}};
+        spyOn(mylfod, 'db_get_fetcher').and.callFake(
+            function(fetcher_id) {return fetcher_names[fetcher_id]});
+        spyOn(mylfod, 'db_log_fetch');
+        callback = jasmine.createSpy('callback');
+        mylfod.get_last_fetches(callback);
+    });
+
     it('callback is called with fetcher and date logs', function() {
         expect(callback).toHaveBeenCalledWith(
           [{date: 'today', fetcher: 'Andrea'},
