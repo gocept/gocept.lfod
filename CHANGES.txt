@@ -6,7 +6,6 @@ CHANGES
 
 - first release.
 
-- migrate to GitHub
+- Migrate to GitHub.
 
 - Use GitHub actions as CI.
-
