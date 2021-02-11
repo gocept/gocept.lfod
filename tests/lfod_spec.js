@@ -14,7 +14,7 @@ describe('Lfod api definition', function() {
     beforeAll(function() {
         mylfod = new lfod.Lfod('http://localhost/');
     });
-     
+
     it('has fetch method', function() {
         expect(mylfod.fetch).toBeDefined();
     });
@@ -78,7 +78,7 @@ describe('Lfod can list fetchers', function() {
 
 describe('Lfod calculates scores for eaters and fetcher', function() {
     var set_score_mock;
-    
+
     beforeAll( function() {
         var mylfod = new lfod.Lfod('some_url');
         var callback = function() {};
@@ -88,7 +88,7 @@ describe('Lfod calculates scores for eaters and fetcher', function() {
         spyOn(mylfod, 'db_get_score').and.callFake(function(fetcher_id) {return current_score[fetcher_id]});
         mylfod.fetch('nilo', ['basti', 'zagy'], 0, callback);
     });
-    
+
     it('nilos score is increased by number of eater', function() {
         expect(set_score_mock).toHaveBeenCalledWith('nilo', -1);
     });
@@ -111,7 +111,7 @@ describe('Lfod can handle guests', function() {
         mylfod = new lfod.Lfod('some_url');
         callback = function() {};
     });
-    
+
     beforeEach(function() {
         this.set_score_mock = spyOn(mylfod, 'db_set_score');
         var current_score = {'nilo': -3, 'basti': 1, 'zagy': 2, 'guests': 0};
