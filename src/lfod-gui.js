@@ -12,7 +12,7 @@ var init_templates = function() {
         var templ = $(template);
         var template_id = templ.attr('data-template-id');
         var code = templ.parent().html();
-        templates[template_id] = new jsontemplate.Template(code, 
+        templates[template_id] = new jsontemplate.Template(code,
             {default_formatter: 'html',
              undefined_str: '' });
         templ.remove();
