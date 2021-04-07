@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 
-module.exports = mode => {
+module.exports = env => {
     return {
         entry: "./src/lfod-gui.js",
-        mode: mode,
+        mode: env.production ? 'production' : 'development',
         output: {
             path: __dirname + "/src",
             filename: "lfod.js"
