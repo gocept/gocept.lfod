@@ -15,7 +15,7 @@
   "license": "ZPL 2.1",
   "dependencies": {
     "jquery": "^3.5.0",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "json-template-foo": "~0.8.0"
   },
   "devDependencies": {
