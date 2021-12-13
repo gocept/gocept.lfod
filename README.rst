@@ -2,6 +2,9 @@
 gocept.lfod
 ===========
 
+.. caution:: 
+  This package is now longer in use and might be rewritten in a better way if needed again.
+
 Determine the lunch fetcher of the day.
 
 Installation
